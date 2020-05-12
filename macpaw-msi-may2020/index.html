@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MSI 2020</title>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="./css/style.css">
+</head>
+
+<body>
+    <section>
+        <div class="container">
+            <div class="wrapper">
+                <header>
+                    <h1 class="logo">MSI 2020</h1>
+                    <div id="fav_menu" class="header__fav_menu">
+                        <div class="header__fav__menu__icon dot">
+                            <span class="line"></span>
+                            <span class="line"></span>
+                        </div>
+                        <span class="header__fav_menu__text">Favourite</span>
+                    </div>
+                </header>
+                <main>
+                    <div class="titlebox">
+                        <h4 class="titlebox__text titlebox__text--big">Hey!</h4>
+                        <h4 class="titlebox__text titlebox__text--small">Let’s try to find a joke for you:</h4>
+                    </div>
+                    <div class="choice">
+                        <form>
+                            <div class="form__line">
+                                <div class="form__line__inner">
+                                    <input id="rand" name="jokes" type="radio" value="rand" checked>
+                                    <label for="rand">Random</label>
+                                </div>
+                            </div>
+                            <div id="cat_box" class="form__line">
+                                <div class="form__line__inner">
+                                    <input id="cat" name="jokes" type="radio" value="cat">
+                                    <label for="cat">Categories</label>
+                                </div>
+                                <div id="cat_cont" class="form__line__inner"></div>
+                            </div>
+                            <div class="form__line">
+                                <div class="form__line__inner">
+                                    <input id="srch" name="jokes" type="radio" value="srch">
+                                    <label for="srch">Search</label>
+                                </div>
+                                <div class="form__line__inner form__line__inner--srch">
+                                    <input id='textSrch' type="text" placeholder="Free text search...">
+                                </div>
+                            </div>
+                            <div class="form__line">
+                                <div class="form__line__inner">
+                                    <input id="submit" type="submit" value="Get a joke">
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                    <div class="textMes">
+                        <div id="textMesWrap" class="textMes__wrapper"></div>
+                    </div>
+                </main>
+            </div>
+        </div>
+        <div id="modal">
+            <div class="modal">
+                <div id="favsWrap" class="textMes__wrapper"></div>
+            </div>
+            <div class="popup">
+                <h5 class="popup__text"></h5>
+                <button class="popup__but">ok</button>
+            </div>
+        </div>
+    </section>
+    <script src="./js/script.js"></script>
+</body>
+
+</html>
