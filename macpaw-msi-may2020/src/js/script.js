@@ -1,23 +1,31 @@
 'use strict';
 
-
 let newObj;
-const randUrl = 'https://api.chucknorris.io/jokes/random';
-const catUrl = 'https://api.chucknorris.io/jokes/random?category=';
-const srchUrl = 'https://api.chucknorris.io/jokes/search?query=';
+const randUrl = 'https://api.chucknorris.io/jokes/random',
+    catUrl = 'https://api.chucknorris.io/jokes/random?category=',
+    srchUrl = 'https://api.chucknorris.io/jokes/search?query=',
+    textWrapper = document.getElementById('textMesWrap'),
+    modalMain = document.getElementById('modal'),
+    catCont = document.getElementById('cat_cont'),
+    randRadInp = document.getElementById('rand'),
+    catRadInp = document.getElementById('cat'),
+    srchRadInp = document.getElementById('srch'),
+    srchTextInp = document.querySelector('.form__line__inner--srch'),
+    textSrch = document.getElementById('textSrch'),
+    submit = document.getElementById('submit'),
+    popup = document.querySelector('.popup'),
+    popText = document.querySelector('.popup__text'),
+    popBut = document.querySelector('.popup__but'),
+    favsWrap = document.getElementById('favsWrap'),
+    favMenu = document.getElementById('fav_menu'),
+    modalSec = document.querySelector('.modal');
 
-const textWrapper = document.getElementById('textMesWrap');
 
-const modalMain = document.getElementById('modal');
-
-
-window.onload = function () {
+self.onload = function () {
     getFromStore();
     fetchChuckApi('https://api.chucknorris.io/jokes/categories', addCategories);
     // localStorage.clear();
 }
-
-
 
 
 // fetch json from chucknorris api
@@ -41,10 +49,7 @@ function fetchChuckApi(url, funcName) {
 
 
 function addToArr(obj) {
-
     let arr = [];
-
-
     if (obj.id) {
         document.getElementById(obj.id) !== null ? newObj = {} : newObj = { ...obj };
     } else if (obj.result) {
@@ -61,13 +66,8 @@ function addToArr(obj) {
     } else {
         newObj = { ...obj };
     }
-
     return newObj;
-
 }
-
-
-const catCont = document.getElementById('cat_cont');
 
 
 // draw categories
@@ -93,14 +93,6 @@ function addCategories(obj) {
 }
 
 
-
-
-const randRadInp = document.getElementById('rand');
-const catRadInp = document.getElementById('cat');
-const srchRadInp = document.getElementById('srch');
-const srchTextInp = document.querySelector('.form__line__inner--srch');
-
-
 // additional info by click radio-buts
 
 randRadInp.addEventListener('click', function () {
@@ -116,8 +108,6 @@ srchRadInp.addEventListener('click', function () {
     catCont.style.display = 'none';
 });
 
-
-const textSrch = document.getElementById('textSrch');
 
 // check radio buttons
 
@@ -149,9 +139,7 @@ function corCat() {
 // correct input text
 
 function corInp() {
-
     let letters = /^[0-9a-zA-Z]+$/;
-
     if (2 < textSrch.value.length && textSrch.value.length < 121) {
         console.log(textSrch.value.length)
         if (textSrch.value.match(letters)) {
@@ -163,7 +151,6 @@ function corInp() {
         errMes('Chuck using min 3 and max 120 symbols');
     }
 }
-
 
 
 // check checkbox buttons
@@ -178,12 +165,10 @@ function getSelectedCheckboxValues(name) {
 }
 
 
-const submit = document.getElementById('submit');
-
 // get jokes by submit form
 
 submit.addEventListener('click', function (e) {
-    e.preventDefault();
+    e.preventDefault ? e.preventDefault() : e.returnValue = false;
     getSelectedRadioValues('jokes');
 });
 
@@ -251,12 +236,8 @@ function drawJoke(obj, cont) {
             document.querySelector('.textMes__outer_' + cont.id + '__inner_' + obj.id).nextElementSibling.children[3].appendChild(cat);
         }
     }
-
     remFromFav(obj.id);
 }
-
-
-
 
 
 // adding joke
@@ -288,23 +269,16 @@ function addJokeBySrch(obj) {
 
 // same joke
 
-const popup = document.querySelector('.popup');
-const popText = document.querySelector('.popup__text');
-const popBut = document.querySelector('.popup__but');
-
 function errMes(text) {
     popText.innerHTML = text;
     popup.classList.toggle('popup_close');
     setTimeout(function () { modalMain.classList.toggle('modal_back'); modalMain.classList.toggle('index'); }, 300);
     popBut.addEventListener('click', function (e) {
-        e.preventDefault();
+        e.preventDefault ? e.preventDefault() : e.returnValue = false;
         errMes();
     })
 }
 
-
-
-const favsWrap = document.getElementById('favsWrap');
 
 // add to favourites
 
@@ -312,7 +286,7 @@ function addToFav(id, obj) {
     const likeOnJokeInMain = document.querySelector('.textMes__outer_textMesWrap__inner__like_img_' + id);
 
     likeOnJokeInMain.addEventListener('click', function (e) {
-        e.preventDefault();
+        e.preventDefault ? e.preventDefault() : e.returnValue = false;
         this.classList.toggle('fav');
         if (localStorage.getItem(id) === null) {
             addToStore(obj);
@@ -324,6 +298,7 @@ function addToFav(id, obj) {
     })
 }
 
+
 // unfavourite joke
 
 function remUnfav(id) {
@@ -332,17 +307,14 @@ function remUnfav(id) {
 }
 
 
-
-
 // remove from favourites
 
 function remFromFav(id) {
     const likeOnJokeInFavs = document.querySelector('.textMes__outer_favsWrap__inner__like_img_' + id);
     const likeOnJokeInMain = document.querySelector('.textMes__outer_textMesWrap__inner__like_img_' + id);
-
     if (likeOnJokeInFavs instanceof Element) {
         likeOnJokeInFavs.addEventListener('click', function (e) {
-            e.preventDefault();
+            e.preventDefault ? e.preventDefault() : e.returnValue = false;
             likeOnJokeInFavs.parentElement.parentElement.remove();
             if (likeOnJokeInMain instanceof Element) {
                 likeOnJokeInMain.classList.remove('fav');
@@ -366,10 +338,7 @@ function getHours(ms) {
 
 // favourite menu by clicking
 
-const favMenu = document.getElementById('fav_menu');
-const modalSec = document.querySelector('.modal');
-
-if (window.screen.width < 1440) {
+if (self.screen.width < 1440) {
     favMenu.addEventListener('click', function () {
         this.children[0].children[0].classList.toggle('line--fir');
         this.children[0].children[1].classList.toggle('line--sec');
@@ -389,9 +358,8 @@ function addToStore(obj) {
         value: obj.value,
         updated_at: obj.updated_at
     }
-
     if (typeof (Storage) !== "undefined") {
-        window.localStorage.setItem(joke.id, JSON.stringify(joke));
+        self.localStorage.setItem(joke.id, JSON.stringify(joke));
     } else {
         alert('Sorry no storage support');
     }
@@ -401,9 +369,8 @@ function addToStore(obj) {
 // remove from localStorage
 
 function remFromStor(id) {
-    window.localStorage.removeItem(id);
+    self.localStorage.removeItem(id);
 }
-
 
 
 // get favourite jokes from localStorage
